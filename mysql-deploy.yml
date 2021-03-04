@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blogdb
+  labels:
+    app: blogdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blogdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: blogdb
+    spec:
+      containers:
+      - name: blogdb
+        image: mysql:5.6
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-root
+              key: password
+        ports:
+        - containerPort: 3306
+          name: blogdb
+          protocol: TCP

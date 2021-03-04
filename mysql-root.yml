@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-root
+type: Opaque
+data:
+  password: czRwM3JzM2NyM3Q=
